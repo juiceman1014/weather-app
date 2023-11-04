@@ -6,11 +6,11 @@ const searchBar = document.getElementById("search-bar");
 searchBar.addEventListener("keydown", (event) =>{
     if(event.key == "Enter"){
         userCity = searchBar.value;
-        fetchData(userCity);
+        getWeather(userCity);
     }
 })
 
-async function getWeather(){
+async function getWeather(searchTerm){
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=cd06bddc6518484ba1721122232810&q=${userCity}`,
     {mode: "cors"});
     const cityData = await response.json();
@@ -21,4 +21,4 @@ async function getWeather(){
     
 }
 
-getWeather();
+getWeather(defaultCity);
