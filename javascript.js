@@ -5,7 +5,7 @@ const searchBar = document.getElementById("search-bar");
 
 searchBar.addEventListener("keydown", (event) =>{
     if(event.key == "Enter"){
-        userCity = searchBar.ariaValueMax;
+        userCity = searchBar.value;
         fetchData(userCity);
     }
 })
