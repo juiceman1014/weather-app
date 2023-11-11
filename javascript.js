@@ -19,11 +19,17 @@ function clearValues(){
     weatherIcon.src = " ";
 }
 
-searchBar.addEventListener("keydown", (event) =>{
+searchBar.addEventListener("keydown", async (event) =>{
     if(event.key == "Enter"){
         userCity = searchBar.value;
-        getWeather(userCity);
-        clearValues();
+        try{
+            clearValues();
+            await getWeather(userCity);
+        }
+        catch(error){
+            console.error(error);
+            alert("Error: Unable to fetch weather data. Please check the city name and try again");
+        }
     }
 })
 
@@ -36,6 +42,11 @@ tempToggle.addEventListener("click", () => {
 async function getWeather(searchTerm){
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=cd06bddc6518484ba1721122232810&q=${searchTerm}`,
     {mode: "cors"});
+
+    if(!response.ok){
+        throw new Error(`Error ${response.status}:${response.statusText}`);
+    }
+
     const cityData = await response.json();
     cityName.textContent += `${cityData.location.name}`;
     regionName.textContent += `${cityData.location.region}`;
