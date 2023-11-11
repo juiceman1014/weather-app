@@ -3,6 +3,7 @@ const regionName = document.getElementById("region");
 const countryName = document.getElementById("country");
 const tempLevel = document.getElementById("temperature");
 const tempToggle = document.getElementById("temp-toggle");
+const weatherIcon = document.getElementById("weather-icon")
 let isCelsius = false;
 
 const defaultCity = "san jose";
@@ -15,6 +16,7 @@ function clearValues(){
     regionName.textContent = "Region: ";
     countryName.textContent = "Country: ";
     tempLevel.textContent = "Temperature : ";
+    weatherIcon.src = " ";
 }
 
 searchBar.addEventListener("keydown", (event) =>{
@@ -38,7 +40,9 @@ async function getWeather(searchTerm){
     cityName.textContent += `${cityData.location.name}`;
     regionName.textContent += `${cityData.location.region}`;
     countryName.textContent += `${cityData.location.country}`;
-    tempLevel.textContent += isCelsius ? `${cityData.current.temp_c} C` : `${cityData.current.temp_f} F`
+    tempLevel.textContent += isCelsius ? `${cityData.current.temp_c} C` : `${cityData.current.temp_f} F`;
+    weatherIcon.src = `https:${cityData.current.condition.icon}`;
+
 }
 
 getWeather(userCity);
